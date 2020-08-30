@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardcoreMotivator.GUI", "HardcoreMotivator.GUI\HardcoreMotivator.GUI.csproj", "{A4EB3D2A-205D-4F60-817D-B14ACA127325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardcoreMotivator.BL", "HardcoreMotivator.BL\HardcoreMotivator.BL.csproj", "{5FF26A79-36AE-480A-946C-2674F109B6BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A4EB3D2A-205D-4F60-817D-B14ACA127325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EB3D2A-205D-4F60-817D-B14ACA127325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EB3D2A-205D-4F60-817D-B14ACA127325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EB3D2A-205D-4F60-817D-B14ACA127325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FF26A79-36AE-480A-946C-2674F109B6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF26A79-36AE-480A-946C-2674F109B6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF26A79-36AE-480A-946C-2674F109B6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF26A79-36AE-480A-946C-2674F109B6BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EA1E506-E679-475F-BADB-838869729448}
+	EndGlobalSection
+EndGlobal
