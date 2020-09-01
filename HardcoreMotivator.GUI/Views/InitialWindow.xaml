@@ -4,9 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HardcoreMotivator.GUI.Views"
-        mc:Ignorable="d"
-        Title="InitialWindow" Height="300" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        mc:Ignorable="d" FontFamily="David" FontSize="16"
+        Title="" Height="350" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
+>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
         
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" MouseLeftButtonDown="WindowTop_OnMouseLeftButtonDown">
+            <TextBlock/>
+        </DockPanel>
+
+        <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource ExitButtonsStyle}" Click="CloseButton_Click">
+            <Image Source="/Pics/exit.png" Style="{StaticResource ExitButtonsImageStyle}"/>
+        </Button>
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Text="hardcore motivator"
+                   FontSize="26" FontFamily="Rockwell Nova" FontWeight="Medium" Margin="0 0 0 25"
+                   MouseLeftButtonDown="WindowTop_OnMouseLeftButtonDown"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="Input your name" Margin="0 0 0 5"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 0 0 5" >
+            <Image Source="/Pics/question.png" Width="20" Height="20" VerticalAlignment="Top">
+                <Image.ToolTip>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="It is not the password for access to application" />
+                        <TextBlock  Text="It is the password for minimize application if you have not yet completed your activity,"/>  
+                        <TextBlock Text="but you need to close this app"/> 
+                        <TextBlock Text="You should to choose hardcore password"/> 
+                    </StackPanel>
+                </Image.ToolTip>
+            </Image>
+            <TextBlock Text="Input your pass" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="Input your action" Margin="0 0 0 5"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <TextBlock Grid.Column="1" Grid.Row="8" Text="Select measurement value" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"
+                  Width="60">
+        </ComboBox>
+        <Button Grid.Column="2" Grid.Row="9" VerticalAlignment="Bottom" Content="Start"/>
     </Grid>
 </Window>

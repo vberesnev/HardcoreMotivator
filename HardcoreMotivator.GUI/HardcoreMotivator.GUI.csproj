@@ -7,7 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pics\exit.png" />
+    <None Remove="Pics\question.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HardcoreMotivator.BL\HardcoreMotivator.BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pics\exit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Pics\question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

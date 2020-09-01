@@ -21,5 +21,15 @@ namespace HardcoreMotivator.GUI.Views
         {
             InitializeComponent();
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void WindowTop_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
