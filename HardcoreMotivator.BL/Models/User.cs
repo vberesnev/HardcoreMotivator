@@ -4,12 +4,14 @@ using System.Text;
 
 namespace HardcoreMotivator.BL.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string PasswordForOff { get; set; }
 
+        public User(){}
+        
         public User(string name, string password)
         {
             Name = name;
@@ -21,7 +23,5 @@ namespace HardcoreMotivator.BL.Models
         {
             Id = id;
         }
-
-
     }
 }

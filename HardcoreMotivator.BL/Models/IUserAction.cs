@@ -5,8 +5,10 @@ namespace HardcoreMotivator.BL.Models
 {
     public interface IUserAction
     {
-        public string ActionName { get; set; }
-        public string TableName { get; set; }   
-        public IEnumerable<ActionResult> Results { get; set; }
+        string ActionName { get; set; }
+        string TableName { get; }   
+        Measurement Measurement { get; set; }
+        User User { get; set; }
+        IEnumerable<ActionResult> Results { get; set; }
     }
 }
