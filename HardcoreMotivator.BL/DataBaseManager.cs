@@ -6,9 +6,9 @@ using System.Data.SQLite;
 
 namespace HardcoreMotivator.BL
 {
-    public class DataBaseManager
+    internal class DataBaseManager
     {
-        public static bool IsUserExists()
+        internal static bool IsAnyUsersExists()
         {
             try
             {
@@ -21,16 +21,15 @@ namespace HardcoreMotivator.BL
             {
                 throw new Exception($"Can not get data from database: {e.Message}");
             }
-            
         }
 
-        public static object[] GetTopOneRow(string tableName)
+        internal static object[] GetTopOneRow(string tableName, string whereCondition = "")
         {
             try
             {
                 using var connection = new SQLiteConnection(GetConnectionString());
                 connection.Open();
-                var command = new SQLiteCommand($"SELECT TOP 1 * FROM {tableName}", connection);
+                var command = new SQLiteCommand($"SELECT * FROM {tableName} {whereCondition} ORDER BY Id LIMIT 1", connection);
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -44,10 +43,8 @@ namespace HardcoreMotivator.BL
                     }
                     return result;
                 }
-                else
-                {
-                    return new object[0];
-                }
+
+                return new object[0];
             }
             catch (Exception e)
             {
@@ -55,14 +52,14 @@ namespace HardcoreMotivator.BL
             }
         }
 
-        public static List<object[]> GetAllRows(string tableName)
+        internal static List<object[]> GetAllRows(string tableName)
         {
             try
             {
                 using var connection = new SQLiteConnection(GetConnectionString());
                 connection.Open();
-                var command = new SQLiteCommand($"SELECT * FROM {tableName}", connection);
-                var reader = command.ExecuteReader();
+                var selectCommand = new SQLiteCommand($"SELECT * FROM {tableName}", connection);
+                var reader = selectCommand.ExecuteReader();
                 var list = new List<object[]>();
                 if (reader.HasRows)
                 {
@@ -84,14 +81,77 @@ namespace HardcoreMotivator.BL
             }
         }
 
-        public static bool CreateUser(string name, string password)
+        internal static bool CreateUser(string name, string password)
         {
-            //TODO
+            try
+            {
+                using var connection = new SQLiteConnection(GetConnectionString());
+                connection.Open();
+
+                if (DoesUserAlreadyExist(name, connection))
+                    return false;
+                
+                var insertCommand = new SQLiteCommand("INSERT INTO User (Name, PassForOff) VALUES (@param1, @param2)", connection);
+                insertCommand.CommandType = CommandType.Text;
+                insertCommand.Parameters.Add("@param1", DbType.String).Value = name;
+                insertCommand.Parameters.Add("@param2", DbType.String).Value = password;
+                insertCommand.ExecuteNonQuery();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                throw new SQLiteException($"Can not create user: {e.Message}");
+            }
+        }
+
+        private static bool DoesUserAlreadyExist(string name, SQLiteConnection connection)
+        {
+            var selectCommand = new SQLiteCommand("SELECT COUNT(*) FROM User WHERE Name = @param1", connection);
+            selectCommand.CommandType = CommandType.Text;
+            selectCommand.Parameters.Add("@param1", DbType.String).Value = name;
+            return (long)selectCommand.ExecuteScalar() == 1;
+        }
+
+        public static void CreateUserActionTable(string userActionTableName)
+        {
+            try
+            {
+                using var connection = new SQLiteConnection(GetConnectionString());
+                connection.Open();
+                var createTableCommand = new SQLiteCommand($"CREATE TABLE {userActionTableName} (\"Id\" INTEGER NOT NULL UNIQUE, \"Date\" TEXT NOT NULL, \"Value\" REAL NOT NULL, PRIMARY KEY(\"Id\" AUTOINCREMENT));", connection);
+                createTableCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new SQLiteException($"Can not create user action table <{userActionTableName}>: {e.Message}");
+            }
         }
 
         private static string GetConnectionString(string id="Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
+
+        public static void AddValueToActionsDictionary(string userActionActionName, string userActionTableName, int measurementId, int userId)
+        {
+            try
+            {
+                using var connection = new SQLiteConnection(GetConnectionString());
+                connection.Open();
+                
+                var insertCommand = new SQLiteCommand("INSERT INTO ActionsDictionary (UserActionName, DbTableActionName, MeasurementId, UserId) VALUES ('?','?', @param1, @param2)", connection);
+                insertCommand.CommandType = CommandType.Text;               
+                insertCommand.Parameters.Add(new SQLiteParameter(userActionActionName, DbType.String));
+                insertCommand.Parameters.Add(new SQLiteParameter(userActionTableName, DbType.String));
+                insertCommand.Parameters.Add("@param1", DbType.Int32).Value = measurementId;
+                insertCommand.Parameters.Add("@param2", DbType.Int32).Value = userId;
+                insertCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw new SQLiteException($"Can not insert action to action dictionary table: {e.Message}");
+            }
         }
     }
 }
