@@ -9,6 +9,12 @@ namespace HardcoreMotivator.GUI.ViewModels
 {
     internal class BaseViewModel: INotifyPropertyChanged
     {
+        public event EventHandler<ViewModelMessageEventArgs> MessageEvent;
+        protected virtual void SendMessage(ViewModelMessageEventArgs args)
+        {
+            MessageEvent?.Invoke(this, args);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

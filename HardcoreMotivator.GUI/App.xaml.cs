@@ -19,7 +19,7 @@ namespace HardcoreMotivator.GUI
         {
             try
             {
-                if (DataBaseManager.IsUserExists())
+                if (DataManager.IsAnyUsersExists())
                 {
                     MainWindow window = new MainWindow();
                     window.Show();

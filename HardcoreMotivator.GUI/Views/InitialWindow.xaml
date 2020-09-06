@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HardcoreMotivator.GUI.Views"
+        xmlns:vm="clr-namespace:HardcoreMotivator.GUI.ViewModels"
         mc:Ignorable="d" FontFamily="David" FontSize="16"
-        Title="" Height="350" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
->
+        Title="" Height="350" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.DataContext>
+        <vm:InitialViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -39,7 +42,8 @@
                    FontSize="26" FontFamily="Rockwell Nova" FontWeight="Medium" Margin="0 0 0 25"
                    MouseLeftButtonDown="WindowTop_OnMouseLeftButtonDown"/>
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Input your name" Margin="0 0 0 5"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="0 0 0 15"
+                 Text="{Binding User.Name, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 0 0 5" >
             <Image Source="/Pics/question.png" Width="20" Height="20" VerticalAlignment="Top">
                 <Image.ToolTip>
@@ -53,13 +57,19 @@
             </Image>
             <TextBlock Text="Input your pass" VerticalAlignment="Bottom"/>
         </StackPanel>
-        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="0 0 0 15"
+                 Text="{Binding User.PasswordForOff, Mode=TwoWay}"/>
         <TextBlock Grid.Column="1" Grid.Row="6" Text="Input your action" Margin="0 0 0 5"/>
-        <TextBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Margin="0 0 0 15"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Margin="0 0 0 15"
+                 Text="{Binding UserAction.ActionName, Mode=TwoWay}"/>
         <TextBlock Grid.Column="1" Grid.Row="8" Text="Select measurement value" VerticalAlignment="Center"/>
         <ComboBox Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"
-                  Width="60">
+                  Width="85"
+                  ItemsSource="{Binding Path=MeasurementSource, Mode=OneWay}"
+                  DisplayMemberPath="Value"
+                  SelectedItem="{Binding UserAction.Measurement, Mode=TwoWay}">
         </ComboBox>
-        <Button Grid.Column="2" Grid.Row="9" VerticalAlignment="Bottom" Content="Start"/>
+        <Button Grid.Column="2" Grid.Row="9" Width="85" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start"
+                Command="{Binding AddUserCommand}"/>
     </Grid>
 </Window>
